@@ -3,7 +3,11 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-na
 import CheckBox from './common/CheckBox/CheckBox.js';
 
 class ToDoRow extends Component {
-    state = { isChecked: false, title: this.props.title };
+    constructor(props) {
+        super(props);
+        
+        this.state = { isChecked: false, data: this.props.data };
+    }
 
     onCheckPress() {
         this.setState({ isChecked: !this.state.isChecked });
@@ -14,6 +18,8 @@ class ToDoRow extends Component {
     }
 
     render() {
+        const { value, container } = this.state.data;
+
         return (
             <TouchableOpacity 
                     style={styles.touchableOpacityStyle} 
@@ -25,12 +31,12 @@ class ToDoRow extends Component {
                         </View>
                     </TouchableWithoutFeedback>
                     <View style={styles.descriptionWrapperStyle}>
-                        <Text style={styles.titleStyle}>{this.state.title}</Text>
+                        <Text style={styles.titleStyle}>{value}</Text>
                         <Text style={styles.subtitleStyle}>10:00 p.m.</Text>
                     </View>
                     <View style={styles.indicatorWrapperStyle}>
                     </View>
-                    <View style={styles.colorViewStyle} />
+                    <View style={{ ...styles.colorViewStyle, backgroundColor: container.color }} />
             </TouchableOpacity>
         );
     }
@@ -79,8 +85,7 @@ const styles = {
     },
     colorViewStyle: {
         height: 40,
-        width: 3,
-        backgroundColor: '#BEAAF1'
+        width: 3
     }
 };
 
