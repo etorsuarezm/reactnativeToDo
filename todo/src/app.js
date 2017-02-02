@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import { 
     View
 } from 'react-native';
-import ToDoMailList from '../src/components/ToDoMailList.js';
-
-
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './reducers';
+import TodoListView from '../src/components/TodoListView';
 
 class App extends Component {
-
-    toggleCheck() {
-
-    }
-
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <ToDoMailList />
-            </View>
+            <Provider store={createStore(reducers)}>
+                <View style={{ flex: 1 }}>
+                    <TodoListView />
+                </View>
+            </Provider>
         );
     }
 }
